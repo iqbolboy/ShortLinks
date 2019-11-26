@@ -1,0 +1,57 @@
+﻿@model ShortLinks.Models.ShortLink
+
+@{
+    ViewBag.Title = "Удалить";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>Вы действительно хотите удалить?</h3>
+<div>
+    <h4>Сокращенный URL</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LongUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LongUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShortUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShortUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RedirectCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RedirectCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateDateTime)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-danger" /> |
+            @Html.ActionLink("Список сокращенных URL-ов", "Index", null, new { @class="btn btn-primary active"})
+        </div>
+    }
+</div>

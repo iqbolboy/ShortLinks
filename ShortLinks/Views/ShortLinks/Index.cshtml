@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ShortLinks.Models.ShortLink>
+
+@{
+    ViewBag.Title = "Список сокращенных URL-ов";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Создать", "Create", null, new { @class="btn btn-primary active"})
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LongUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShortUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RedirectCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDateTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LongUrl)
+        </td>
+        <td>
+            @{
+                string shortUrl = ViewBag.DomainName + "/" + item.ShortUrl;
+            }
+            @Html.DisplayFor(modelItem => shortUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RedirectCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDateTime)
+        </td>
+        <td>
+            <div class="btn-group">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+                    Действия <span style="font-size: 12px;">&#9660</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Изменить", "Edit", new { shortLinkID = item.ShortLinkID })</li>
+                    <li class="divider"></li>
+                    <li> @Html.ActionLink("Удалить", "Delete", new { shortLinkID = item.ShortLinkID })</li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+}
+
+</table>

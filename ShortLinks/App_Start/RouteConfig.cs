@@ -14,10 +14,23 @@ namespace ShortLinks
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+            name: "Redirect",
+            url: "{id}",
+            defaults: new { controller = "ShortLinks", action = "Redirect", id = UrlParameter.Optional },
+            constraints: new
+            {             
+                id = @"\S{6}",
+                httpMethod = new HttpMethodConstraint("GET")
+            }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "ShortLinks", action = "Index", id = UrlParameter.Optional }
             );
+
+        
         }
     }
 }
